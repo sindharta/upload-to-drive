@@ -70,7 +70,7 @@ function zipDirectory(source, out) {
  * Uploads the file to Google Drive
  */
 function uploadToDrive() {
-  actions.info('Uploading file to Goole Drive...');
+  actions.info('Uploading file to Google Drive: ' + folder);
   drive.files.create({
     requestBody: {
       name: filename,
