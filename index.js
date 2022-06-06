@@ -33,14 +33,14 @@ async function main() {
 
     zipDirectory(target, filename)
       .then(() => {
-        return uploadToDrive();
+        uploadToDrive().then((responseText) => { return responseText; });
       }).catch(e => {
         actions.error('Zip failed');
         throw e;
       });
   }
   else {
-    return uploadToDrive();
+    uploadToDrive().then((responseText) => { return responseText; });
   }
 }
 
@@ -84,8 +84,9 @@ function uploadToDrive() {
     supportsAllDrives: true
   }).then(
     (response) => {
-      actions.info('File uploaded successfully:' + response.data);
-      return response.data;
+      let responseText = JSON.stringify(response.data);
+      actions.info('File uploaded successfully:' + responseText);
+      return responseText;
     }
   ).catch(e => {
       actions.error('Upload failed');
@@ -93,9 +94,9 @@ function uploadToDrive() {
   });
 }
 
-main().then((responseData) => {
-  console.log(responseData);
-  return responseData;
+main().then((responseText) => {
+  console.log(responseText);
+  return responseText;
 }).catch(e => actions.setFailed(e));
 
 
