@@ -32,14 +32,16 @@ async function main() {
     actions.info(`Zipping ${target}...`)
 
     zipDirectory(target, filename)
-      .then(() => uploadToDrive())
-      .catch(e => {
+      .then(() => {
+        return uploadToDrive();
+      }).catch(e => {
         actions.error('Zip failed');
         throw e;
       });
   }
-  else
-    uploadToDrive();
+  else {
+    return uploadToDrive();
+  }
 }
 
 /**
@@ -80,11 +82,22 @@ function uploadToDrive() {
       body: fs.createReadStream(`${name || target}${fs.lstatSync(target).isDirectory() ? '.zip' : ''}`)
     },
     supportsAllDrives: true
-  }).then(() => actions.info('File uploaded successfully'))
-    .catch(e => {
+  }).then(
+    (response) => {
+      actions.info('File uploaded successfully:' + response.data);
+      return response.data;
+    }
+  ).catch(e => {
       actions.error('Upload failed');
       throw e;
-    });
+  });
 }
 
-main().catch(e => actions.setFailed(e));
+main().then((responseData) => {
+  console.log(responseData);
+  return responseData;
+}).catch(e => actions.setFailed(e));
+
+
+
+
