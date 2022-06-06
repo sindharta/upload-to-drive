@@ -33,14 +33,14 @@ async function main() {
 
     zipDirectory(target, filename)
       .then(() => {
-        uploadToDrive().then((responseText) => { return responseText; });
+        uploadToDrive();
       }).catch(e => {
         actions.error('Zip failed');
         throw e;
       });
   }
   else {
-    uploadToDrive().then((responseText) => { return responseText; });
+    uploadToDrive();
   }
 }
 
@@ -86,6 +86,7 @@ function uploadToDrive() {
     (response) => {
       let responseText = JSON.stringify(response.data);
       actions.info('File uploaded successfully:' + responseText);
+      console.log(responseText);
       return responseText;
     }
   ).catch(e => {
