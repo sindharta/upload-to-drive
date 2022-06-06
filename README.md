@@ -93,6 +93,9 @@ A link to the Drive folder.
 ### `link`
 A link to the Drive folder.
 
+### `responseJSON`
+The response in JSON format.
+
 ## Usage Examples
 This section contains some useful examples.
 

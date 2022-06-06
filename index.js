@@ -84,10 +84,9 @@ function uploadToDrive() {
     supportsAllDrives: true
   }).then(
     (response) => {
-      let responseText = JSON.stringify(response.data);
+      const responseText = JSON.stringify(response.data);
       actions.info('File uploaded successfully:' + responseText);
-      console.log(responseText);
-      return responseText;
+      actions.setOutput("responseJSON", responseText);      
     }
   ).catch(e => {
       actions.error('Upload failed');
@@ -95,10 +94,8 @@ function uploadToDrive() {
   });
 }
 
-main().then((responseText) => {
-  console.log(responseText);
-  return responseText;
-}).catch(e => actions.setFailed(e));
+main().catch(e => actions.setFailed(e));
+
 
 
 

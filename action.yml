@@ -18,6 +18,9 @@ inputs:
 outputs:
   link:
     description: 'A link to the Drive folder'
+  responseJSON: 
+    description: 'The response in JSON format'
+    
 runs:
   using: 'node12'
   main: 'dist/index.js'
